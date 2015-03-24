@@ -42,34 +42,44 @@ void setup()
 	
 
 	// Turn on the blacklight and print a message.
-	lcd.backlight();
-        lcd.clear();
-	lcd.print("Hello!");
+  lcd.backlight();
+  lcd.clear();
+  lcd.print("Hello!");
 
+  
 }
  
 void loop() {
   if (irrecv.decode(&results)) // Если данные пришли 
   {
     #ifdef DEBUG
-     Serial.println(results.value, HEX); // Отправляем полученную данную в консоль
+  Serial.println(results.value, HEX); // Отправляем полученную данную в консоль
     #endif
     
     pos = num.length();
     switch (results.value) {
       case 0xFF9867 : // button 100+
         mySerial.println("AT"); 
+        
+       #ifdef DEBUG
+         Serial.print("AT");
+       #endif  
+        
         Serial.println("Answer=");
         delay(800);
         while(mySerial.available())
         {
-          //mySerial.read(answ);
+         
           Serial.print((char)(mySerial.read()));
-        //  Serial.print(" ");
+        
         } 
         Serial.println(" "); 
         break;
       case 0xFFB04F :  // button 200+
+        #ifdef DEBUG
+          Serial.println("AT+CREG?");  // Chaeck status module
+        #endif  
+        
         mySerial.println("AT+CREG?");
       
         Serial.println("Answer=");

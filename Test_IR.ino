@@ -94,15 +94,12 @@ void loop() {
       
       
       case  0xFF6897 :
-        //Serial.println("button 0");
         if(pos<MAX_DG) num+='0'; 
         break;
        case 0xFF30CF : 
-        //Serial.println("button 1");
         if(pos<MAX_DG) num+='1'; 
         break;
       case 0xFF18E7 :
-        //Serial.println("button 2");
         if(pos<MAX_DG) num+='2';
         break;
       case 0xFF7A85 :

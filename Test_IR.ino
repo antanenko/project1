@@ -150,16 +150,11 @@ void loop() {
         delay(500);
         while(mySerial.available())
         {
-          //mySerial.read(answ);
           Serial.print((char)(mySerial.read()));
-       //   Serial.print(" ");
-        } 
+       } 
         Serial.println(" "); 
         break;
-        
-        
-        
-        
+
        } 
       case 0xFF906F : // button EQ
        { 
@@ -169,7 +164,7 @@ void loop() {
       case 0xFFA857 :   // press button +
         if(pos<MAX_DG) num+='+';
         break;
-      case 0xFFE21D :
+      case 0xFFE21D :  // press button ???
         Serial.println("Cancel");
         Serial.println("ATH");
         mySerial.println("ATH");
@@ -192,9 +187,10 @@ void loop() {
     
     irrecv.resume(); // Принимаем следующую команду
     delay(300);
-  }
- // val = digitalRead(RingPin);
-  if (digitalRead(RingPin)==0)
+  }  // end if recieve data from IR sensor
+  
+ 
+  if (digitalRead(RingPin)==0)   // check pin RING
   {
     int i; 
     for(i=0;i<5;i++)

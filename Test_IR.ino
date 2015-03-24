@@ -68,10 +68,8 @@ void loop() {
         Serial.println("Answer=");
         delay(800);
         while(mySerial.available())
-        {
-         
-          Serial.print((char)(mySerial.read()));
-        
+        {         
+          Serial.print((char)(mySerial.read()));        
         } 
         Serial.println(" "); 
         break;
@@ -86,9 +84,9 @@ void loop() {
         delay(800);
         while(mySerial.available())
         {
-          //mySerial.read(answ);
+         
           Serial.print((char)(mySerial.read()));
-       //   Serial.print(" ");
+       
         } 
         Serial.println(" "); 
         break;
@@ -137,13 +135,13 @@ void loop() {
         break;
       case 0xFFC23D : // button PLAY
        {
-        Serial.println("Calling...");
         stringOne = "ATD"+num+";";
-        Serial.println(stringOne);
-      //  Serial.print('"');
-      //  Serial.print(num);
-      //  Serial.print('"');
-      //  Serial.println(';');
+        
+        #ifdef DEBUG 
+            Serial.println("Calling...");
+            Serial.println(stringOne);
+        #endif
+      
         lcd.setCursor(0,1);
         lcd.print("Calling...!");
       
@@ -163,13 +161,12 @@ void loop() {
         
         
        } 
-      case 0xFF906F :
-       { if(pos>=0) num.remove(pos-1);
-        
-        //Serial.println("buton EQ");
-        break;
+      case 0xFF906F : // button EQ
+       { 
+         if(pos>=0) num.remove(pos-1);
+         break;
        } 
-      case 0xFFA857 :
+      case 0xFFA857 :   // press button +
         if(pos<MAX_DG) num+='+';
         break;
       case 0xFFE21D :
@@ -181,13 +178,17 @@ void loop() {
         lcd.print("Cancel     ");
         break;
     }
-    //lcd.clear(); 
+    
     lcd.home();
     lcd.print("                ");
     lcd.home();
     lcd.print(num);
-    Serial.print("number=");
-    Serial.println(num);
+    
+    #ifdef DEBUG
+    
+      Serial.print("number=");
+      Serial.println(num);
+    #endif  
     
     irrecv.resume(); // Принимаем следующую команду
     delay(300);
